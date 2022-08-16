@@ -25,7 +25,7 @@ steps:
   displayName: 'npm build'
 - task: CopyFilesOverSSH@0
   inputs:
-    sshEndpoint: 'optkontek_web'
+    sshEndpoint: 'ssh_optkontek'
     contents: '_site/**'
     targetFolder: '/www/blogg'
     readyTimeout: '20000'
