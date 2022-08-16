@@ -1,7 +1,7 @@
 ---
 tittel: Legge til CSP-header med .htaccess
 beskrivelse: Med en CSP-header kan vi stoppe flere typer angrep. Her er hvordan du kan sette headeren i .htaccess på Apache.
-tags: post, csp
+tags: post
 dato: 2022-08-16
 layout: layouts/post.njk
 ---
