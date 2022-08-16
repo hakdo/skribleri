@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Publisere Eleventy-sider via Azure DevOps og Pipelines</title>
+  </head>
+  <body>
+    <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-start">
+    <div class="navbar-item has-text-weight-bold">
+      Optkontek
+    </div>
+  </div>
+  <div class="navbar-end">
+    <a href="/" class="navbar-item">
+      Hjem
+    </a>
+
+    <a href="/om-meg" class="navbar-item">
+      Om meg
+    </a>
+  </div>
+</nav></header>
+    
+<section class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="content mt-5">
+          <h1 class="title">Publisere Eleventy-sider via Azure DevOps og Pipelines</h1>
+          <p class="subtitle is-6">
+            Offentliggjort: <time datetime="Tue Aug 16 2022 23:47:53 GMT+0200 (sentraleuropeisk sommertid)">16.8.2022</time>
+          </p>
+          <p>Jeg har lenge eid et domene kjøpt på one.com - hvor jeg nå
+har publisert disse korte postene. Hensikten med å sette opp
+denne siden var først og fremst for å teste publisering til
+et webhotell fra en statisk sidegenerator. Vi har satt opp dette
+via Azure Pipelines, som publiserer til siden basert på
+et Github-repo. Mekanismen krever altså:</p>
+<ul>
+<li>Eleventy: en statisk sidegenerator skrevet i NodeJs</li>
+<li>Github-repo</li>
+<li>Azure DevOps/Azure Pipelines</li>
+<li>SSH-tilgang til webhotellet</li>
+</ul>
+<p>Det første vi gjorde var å sette opp en enkel
+<a href="https://www.11ty.dev/">Eleventy</a>-side. Deretter pushet vi
+koden til <a href="https://github.com/hakdo/skribleri">Github.com</a>.</p>
+<p>Vi opprettet så et prosjekt i Azure DevOps. Der kunne vi koble
+til repoet vårt ved å følge en veiviser. Vi lager til slutt
+en Pipeline definert med en <a href="https://raw.githubusercontent.com/hakdo/skribleri/main/azure-pipelines.yml">YAML-fil</a>.</p>
+<p>11ty bygger statiske filer for web. Disse publiserer vi ved å
+kopiere til webhotellet med en SSH-tunnel. Det er en ferdig
+<em>task</em> vi kan bruke i Azure Pipelines for dette,
+<a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/copy-files-over-ssh?view=azure-devops">dokumentert her</a>.</p>
+<p>For å kunne koble til med SSH må vi lage en service-kobling i
+Azure DevOps-prosjektet. Vi går da inn i prosjektinnstillingene,
+og legger til &quot;service connection&quot;.</p>
+<p>Når alt dette er satt opp, kan vi publisere til bloggen ganske
+enkelt ved å oppdatere &quot;main&quot;-grenen på Github.</p>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+  </body>
+</html>
