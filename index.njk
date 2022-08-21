@@ -17,12 +17,12 @@ layout: layouts/base.njk
     <h2 class="title has-text-centered mt-3 mb-6">Nylige innlegg</h2>
     <div class="columns">
       {% for post in collections.post | reverse %}
-        {% if loop.index0 < 3 %}
+        {% if loop.index0 < 10 and post.data.tags.length > 0 %}
           <div class="column">
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  {{ post.data.tittel }}
+                  {{ post.data.tittel }} | {{ post.data.tags[0] }}
                 </p>
               </header>
               <div class="card-content">

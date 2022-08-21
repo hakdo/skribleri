@@ -11,4 +11,9 @@ module.exports = function (eleventyConfig) {
           DateTime.DATE_SHORT
         );
       });
+      eleventyConfig.addFilter('parent', (stemPath) => {
+        var mystem = stemPath.split("/");
+        var outpath = mystem.slice(0,mystem.length-1).join("/");
+        return outpath
+      });
   };

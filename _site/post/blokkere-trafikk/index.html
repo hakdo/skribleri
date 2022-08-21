@@ -9,21 +9,34 @@
   </head>
   <body>
     <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
-  <div class="navbar-start">
-    <div class="navbar-item has-text-weight-bold">
-      Optkontek
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">Optkontek</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBlogg">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="navbarBlogg" class="navbar-menu">
+    <div class="navbar-start">
+
+      <a href="/post" class="navbar-item">
+        Teknisk sett
+      </a>
+
+      <a href="/reise" class="navbar-item">
+        Reise
+      </a>
+
+      <a href="/om-meg" class="navbar-item">
+        Om meg
+      </a>
+
     </div>
   </div>
-  <div class="navbar-end">
-    <a href="/" class="navbar-item">
-      Hjem
-    </a>
-
-    <a href="/om-meg" class="navbar-item">
-      Om meg
-    </a>
-  </div>
-</nav></header>
+</nav>
+</header>
     
 <section class="page-layout">
   <div class="container">
@@ -32,10 +45,11 @@
         <article class="content mt-5">
           <h1 class="title">Blokkere utgående trafikk til gitt domene eller ip på Windows</h1>
           <p class="subtitle is-6">
-            Offentliggjort: <time datetime="Wed Aug 17 2022 02:00:00 GMT+0200 (sentraleuropeisk sommertid)">17.8.2022</time>
+            <a href="/post">/post</a> - 
+            Offentliggjort: <time datetime="Wed Aug 17 2022 02:00:00 GMT+0200 (sentraleuropeisk sommertid)">17.8.2022</time> 
           </p>
           <p>Skadevare har ofte behov for å kommunisere med infrastruktur på
-internett for å fungere. For sikkerhet kan det være at du trenger å  blokkere slik trafikk. Som et eksempel bruker vi nettsiden til <a href="https://www.dagbladet.no">dagbladet.no</a>.</p>
+internett for å fungere. For sikkerhet kan det være at du trenger å  blokkere slik trafikk.</p>
 <p>Tanken her er at du har tilgang til å kjøre PowerShell-kommandoer som administrator og skal stoppe pågående infiltrasjon. Begge metodene vist under krever at du har
 et administratorvindu åpent.</p>
 <h2>Blokkere domener med hosts-fila</h2>
@@ -46,10 +60,10 @@ ip-adresse man ønsker å assosiere med et domene. For å unngå
 rapportering til C2-infrastruktur kan vi da legge inn at
 domenet er knyttet til localhost:</p>
 <p>For å legge til en blokkering til et domene i hosts-fila kan vi</p>
-<pre><code>echo &quot;127.0.0.1 www.dagbladet.no&quot; &gt;&gt; C:\Windows\System32\drivers\etc\hosts
+<pre><code>echo &quot;127.0.0.1 www.eksempel.no&quot; &gt;&gt; C:\Windows\System32\drivers\etc\hosts
 </code></pre>
 <p>Resultatet er følgende på siste linje i hosts-fila:</p>
-<pre><code>127.0.0.1 www.dagbladet.no
+<pre><code>127.0.0.1 www.eksempel.no
 </code></pre>
 <p>Merk at noen programmer har intern cache (mellomlager) som
 inneholder ip-addressen etter at første DNS-oppslag er gjort.
@@ -62,6 +76,8 @@ Windows-brannmuren. Du finner <a href="https://docs.microsoft.com/en-us/powershe
 <p>Her er hvordan man blokkerer utgående trafikk til en gitt ip-adresse:</p>
 <pre><code>New-NetFirewallrule -DisplayName &lt;Navn-på-regel&gt; -RemoteAdress &lt;ip-du-vil-blokkere&gt; -RemotePort Any -Direction Outbound
 </code></pre>
+<p>Om du skal blokke flere ip-addresser tar du de med i kommandoen over, separert av komma.
+For å blokkere et domene, sørg for at du får med adresser med både versjon 6 og versjon 4 (AA + AAA-records i DNS). Vi kan bruke <code>nslookup</code> for å finne ip-addressene for et gitt domene.</p>
 <p>For å fjerne regelen igjen kan du bruke</p>
 <pre><code>Remove-NetFirewallrule -DisplayName &lt;Navn-på-regel&gt;
 </code></pre>
@@ -72,4 +88,27 @@ Windows-brannmuren. Du finner <a href="https://docs.microsoft.com/en-us/powershe
   </div>
 </section>
   </body>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+
+    });
+  </script>
 </html>

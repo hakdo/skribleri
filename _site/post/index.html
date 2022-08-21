@@ -9,21 +9,34 @@
   </head>
   <body>
     <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
-  <div class="navbar-start">
-    <div class="navbar-item has-text-weight-bold">
-      Optkontek
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">Optkontek</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBlogg">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="navbarBlogg" class="navbar-menu">
+    <div class="navbar-start">
+
+      <a href="/post" class="navbar-item">
+        Teknisk sett
+      </a>
+
+      <a href="/reise" class="navbar-item">
+        Reise
+      </a>
+
+      <a href="/om-meg" class="navbar-item">
+        Om meg
+      </a>
+
     </div>
   </div>
-  <div class="navbar-end">
-    <a href="/" class="navbar-item">
-      Hjem
-    </a>
-
-    <a href="/om-meg" class="navbar-item">
-      Om meg
-    </a>
-  </div>
-</nav></header>
+</nav>
+</header>
     
 <article class="page-layout">
   <div class="container">
@@ -42,15 +55,15 @@
     <ul class="list">
       
       <li class="list-item">
+        17.8.2022: <a href="/post/eleventy-azure-pipelines/">Publisere Eleventy-sider via Azure DevOps og Pipelines</a>
+      </li>
+      
+      <li class="list-item">
         17.8.2022: <a href="/post/http-til-https/">Sette opp http til https med .htaccess</a>
       </li>
       
       <li class="list-item">
         17.8.2022: <a href="/post/legge-til-csp/">Legge til CSP-header med .htaccess</a>
-      </li>
-      
-      <li class="list-item">
-        17.8.2022: <a href="/post/eleventy-azure-pipelines/">Publisere Eleventy-sider via Azure DevOps og Pipelines</a>
       </li>
       
       <li class="list-item">
@@ -67,4 +80,27 @@
   </div>
 </article>
   </body>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+
+    });
+  </script>
 </html>
