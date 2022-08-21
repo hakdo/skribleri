@@ -2,7 +2,7 @@
 tittel: Publisere Eleventy-sider via Azure DevOps og Pipelines
 beskrivelse: Hvordan publisere til et webhotell viaSSH ved å bruke Azure DevOps
 tags: post
-dato: 2022-08-16
+date: 2022-08-16
 layout: layouts/post.njk
 ---
 Jeg har lenge eid et domene kjøpt på one.com - hvor jeg nå 

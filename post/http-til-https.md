@@ -2,7 +2,7 @@
 tittel: Sette opp http til https med .htaccess
 beskrivelse: Hvordan sette opp .htaccess for https-videredirigering enkelt
 tags: post
-dato: 2022-08-16
+date: 2022-08-16
 layout: layouts/post.njk
 ---
 
