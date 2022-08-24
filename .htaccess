@@ -1,3 +1,3 @@
 <IfModule mod_headers.c>
-  Header set Content-Security-Policy "default-src 'self' cdn.jsdelivr.net sha256-X4D0ya7d+L0pmLKsEnxaP7/f7WXqJwYVoNjZs5dpyXw="
+  Header set Content-Security-Policy "default-src 'self' cdn.jsdelivr.net"
 </IfModule>
