@@ -4,10 +4,12 @@ module.exports = function (eleventyConfig) {
     // Copy the `css` directory to the output
     eleventyConfig.addPassthroughCopy('css');
     eleventyConfig.addPassthroughCopy('js');
+    eleventyConfig.addPassthroughCopy('img');
   
     // Watch the `css` directory for changes
     eleventyConfig.addWatchTarget('css');
     eleventyConfig.addWatchTarget('js');
+    eleventyConfig.addWatchTarget('img');
     eleventyConfig.addFilter('readableDate', (dateObj) => {
         return DateTime.fromJSDate(dateObj, { zone: 'Europe/Oslo' }).toLocaleString(
           DateTime.DATE_SHORT

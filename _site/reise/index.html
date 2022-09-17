@@ -58,6 +58,10 @@
         24.8.2022: <a href="/reise/stavanger_240822/">Jobbtur til Stavanger</a>
       </li>
       
+      <li class="list-item">
+        17.9.2022: <a href="/reise/wuerzburg-september-2022/">Jobbtur til Würzburg</a>
+      </li>
+      
     </ul>
     </div>
   </div>
@@ -68,27 +72,5 @@
   </div>
 </article>
   </body>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-      // Get all "navbar-burger" elements
-      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-      // Add a click event on each of them
-      $navbarBurgers.forEach( el => {
-        el.addEventListener('click', () => {
-
-          // Get the target from the "data-target" attribute
-          const target = el.dataset.target;
-          const $target = document.getElementById(target);
-
-          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-          el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-
-        });
-      });
-
-    });
-  </script>
+  <script src="/js/navbar.js"></script>
 </html>
