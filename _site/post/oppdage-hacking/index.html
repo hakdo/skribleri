@@ -1,0 +1,135 @@
+
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Hvordan kan vi oppdage hacking?</title>
+  </head>
+  <body>
+    <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">Optkontek</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBlogg">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="navbarBlogg" class="navbar-menu">
+    <div class="navbar-start">
+
+      <a href="/post" class="navbar-item">
+        Teknisk sett
+      </a>
+
+      <a href="/reise" class="navbar-item">
+        Reise
+      </a>
+
+      <a href="/om-meg" class="navbar-item">
+        Om meg
+      </a>
+
+    </div>
+  </div>
+</nav>
+</header>
+    
+<section class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="content mt-5">
+          <h1 class="title">Hvordan kan vi oppdage hacking?</h1>
+          <p class="subtitle is-6">
+            <a href="/post">/post</a> - 
+            Offentliggjort: <time datetime="Sun Sep 18 2022 02:00:00 GMT+0200 (sentraleuropeisk sommertid)">18.9.2022</time> 
+          </p>
+          <p>Hacking går stort sett ut på at kriminelle får kontroll
+over en brukerkonto, en datamaskin, eller maskinvare.
+Anta at en hacker har tatt kontroll over din PC.
+Hvordan kan vi oppdage dette, slik at vi kan sette en
+stopper for det?</p>
+<p>Plan A er som regel at antivirusprogrammet vil oppdage det og
+fikse problemet for deg. I mange tilfeller fungerer dette også
+godt. Likevel finnes det en del tilfeller hvor antivirus ikke
+klarer å oppdage ting. Hva kan vi da gjøre?</p>
+<p>Vi kan tenke gjennom hvordan en angriper får tilgang til
+maskinen. Det er mange måter dette kan skje på, men i praksis
+er det et ganske lite utvalg av metoder som often benyttes.
+Hvis vi kan forstå hvordan kriminelle skaffer seg tilgang,
+kan vi planlegge hvordan vi kan oppdage datainnbruddet.</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rekognosering</th>
+            <th>Armering</th>
+            <th>Leveranse</th>
+            <th>Utnyttelse</th>
+            <th>Installasjon</th>
+            <th>Kommando og kontroll</th>
+            <th>Målhandlinger</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Hente info fra åpne kilder</td>
+            <td>Dokument med ondsinnet makro</th>
+            <td>Phishing-epost</td>
+            <td>Bruker aktiverer makroer</td>
+            <td>Laster ned skadevare og etablerer automatisk oppstart</td>
+            <td>Kommando og kontroll til server på internett med fast frekvens</td>
+            <td>Tyveri av data ved opplasting til skytjeneste</td>
+        </tr>
+    </tbody>
+</table>
+<p class="has-text-centered">En mulig fasemodell for et vellykket dataangrep</p>
+<p>Her er det flere muligheter for å kunne oppdage angrepet:</p>
+<ul>
+<li>Phishing: spamfilter kan oppdage det, eller en bruker kan
+oppdage angrepet og rapportere det.</li>
+<li>Aktivering av makro: antivirusprogram kan oppdage dette, eller brukeren forstå i etterkant at dette var et angrep og rapporterer det.</li>
+<li>Nedlasting og opprettelse av ny autostart i Windows. Kan oppdages ved nedlasting om skadevaren er kjent (feks ved bruk av antivirus), eller ved overvåkning av nye oppstartsprogrammer.</li>
+<li>Kommando og kontroll: kan oppdages ved analyse av utgående nettverkstrafikk.</li>
+<li>Målhandlinger: kan oppdages ved analyse av utgående nettverkstrafikk.</li>
+</ul>
+<p>Jo flere metoder vi bruker for å oppdage et angrep, jo større
+sjanse har vi til å avdekke angrepet. Samtidig er det bedre å
+oppdage det tidligere i hendelseskjenden, for å redusere
+skadevirkninger.</p>
+<h1>Oppdage nedlasting og installasjon av skadevare</h1>
+<p>Alle nedlastede filer vil bli sjekket av antivirusprogrammet.
+Antivirus er ofte god på å oppdage vanlige typer skadevare,
+men feiler typisk om nedlastingen ikke treffer på kjente typer
+skadevare, eller har typiske gjenkjennbare trekk ved skadevare.</p>
+<p>Mange typer skadevare forsøker å legge til automatisk oppstart
+av programmet for å kunen overleve en omstart på PC-en. En god
+strategi kan derfor være å overvåke opprettelsen av nye
+oppstartsprogrammer. Det er flere måter å gjøre dette på,
+en metode som gir nøyaktige resultater er gjennom <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns">autoruns</a> fra sysinternals.</p>
+<p>Et annet aleternativ er ganske enkelt å bruke PowerShell til å
+sjekke om det har blitt lagt til nye registry-oppføringer
+som kjører programmer ved oppstart, eller om programmer er
+lagt til i &quot;startup&quot;-folderen i Windows. Dette kan vi gjøre
+med følgende PowerShell-kommando:</p>
+<pre><code>Get-CimInstance Win32_StartupCommand | Select-Object Command, Location
+</code></pre>
+<p>Ved å lagre resutatene fra en kjøring, kan vi sammenlikne
+med forrige kjøring for å oppdage endringer i resultatene.
+Sammenlikningen kan gjøres med <code>Compare-Object</code>.</p>
+<p>Dersom man velger å bruke lokal deteksjon som indikator,
+må resultatene sendes et sted slik at noen kan ta tak i
+problemet. Her kan man bruke en SIEM, en egen webapplikasjon,
+eller ganske enkelt sende en e-post til et on-call team.</p>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+  </body>
+  <script src="/js/navbar.js"></script>
+</html>
