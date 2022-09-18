@@ -90,5 +90,17 @@ Sammenlikningen kan gjøres med `Compare-Object`.
 
 Dersom man velger å bruke lokal deteksjon som indikator, 
 må resultatene sendes et sted slik at noen kan ta tak i 
-problemet. Her kan man bruke en SIEM, en egen webapplikasjon, 
-eller ganske enkelt sende en e-post til et on-call team.
+problemet. Her kan man bruke en SIEM, eller ganske enkelt sende en e-post til den som kan gripe inn og gjøre noe med situasjonen.
+
+## Hva gjør vi når alarmen går? 
+Hva vi foretar oss når alarmen går avhenger nok av 
+hvor mye det har å si at denne maskinen er hacket. Generelt
+vil man nok først forsikre seg om at alarmen er en ekte alarm, 
+for eksempel ved å snakke med den som bruker datamaskinen om den 
+er en laptop eller arbeidsstasjon. Om man tenker at maskinen 
+faktisk er kompromittert, blir neste steg typisk å samle 
+bevis for å forstå hva som faktisk har skjedd, samt isolere 
+den fra andre maskiner i nettet for å unngå spredning av 
+skadevare. Brukerkontoer må bytte passord, og ofte vil det 
+være behov for å reinstallere operativsystemet og gjenopprette 
+data fra backup. 
