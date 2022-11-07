@@ -1,0 +1,153 @@
+
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Hvordan er basissikkerheten på Mastodon?</title>
+  </head>
+  <body>
+    <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">Optkontek</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBlogg">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="navbarBlogg" class="navbar-menu">
+    <div class="navbar-start">
+
+      <a href="/post" class="navbar-item">
+        Teknisk sett
+      </a>
+
+      <a href="/reise" class="navbar-item">
+        Reise
+      </a>
+
+      <a href="/om-meg" class="navbar-item">
+        Om meg
+      </a>
+
+    </div>
+  </div>
+</nav>
+</header>
+    
+<section class="page-layout">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="content mt-5">
+          <h1 class="title">Hvordan er basissikkerheten på Mastodon?</h1>
+          <p class="subtitle is-6">
+            <a href="/post">/post</a> - 
+            Offentliggjort: <time datetime="Mon Nov 07 2022 01:00:00 GMT+0100 (sentraleuropeisk normaltid)">7.11.2022</time> 
+          </p>
+          <h1>Trusselmodellen for en vanlig bruker</h1>
+<p>Mastodon er en sosiale medier-plattform. Vi tar utgangspunkt i at man er en vanlig bruker som ønsker:</p>
+<ul>
+<li>Å publisere mikroblogger/poster som inneholder tekst, bilder, video, etc.</li>
+<li>At innholdet som publiseres er ment å bli spredt og har lave eller ingen krav til konfidensialitet</li>
+</ul>
+<p>Kontoer på sosiale medier kan være attraktive mål for trusselaktører som ønsker å bruke disse til å spre ondsinnet innhold, som for eksempel svindelinnhold eller utgi seg for å være eieren av kontoen.
+For brukere som benytter sosiale medier til å kommunisere privat innhold via direktemeldlinger, kan også tilgang til slik konfidensiell informasjon være et mål for trusselaktøren.</p>
+<p>Forventede trusselscenarier kan være:</p>
+<ol>
+<li>Phishing/sosial manipulasjon for å stjele påloggingsinformasjon som passord og evt. OTP-koder</li>
+<li>Direkteangrep via automatisert passordgjetting</li>
+<li>Utnyttelse av sårbarheter i plattformen for å stjele informasjonskapser e.l.</li>
+<li>Gjenbruk av passord fra andre tjenester som er blitt kompromitterte</li>
+<li>Innsideaktør fra plattformtilbyder eller server-administrator som skaffer seg tilgang til private meldinger</li>
+</ol>
+<p>I tillegg til dette, ønsker man ikke at passordet skal bli kjent om serveren blir hacket, selv om det ofte betyr at alt innhold er tilgjengeliggjort for angriperen.
+Årsaken til det er at folk gjenbruker passord på tvers av tjenester (dårlig idé!), og at tilgang til passord gir angriperen mulighet for å stjele identiteten til
+brukeren på plattformen på en enklere måte.</p>
+<p>De fleste brukere vil være opptatt av at scenario 1-4 ikke skjer. Scenario 4) kan være relevant, men her er ikke plattformene bygget for å være sikre kommunikasjonsløsninger. Man bør med andre ord velge andre løsninger for konfidensiell kommunikasjon. <a href="https://signal.org/nb/">Signal</a> er et godt valg.</p>
+<h1>Beskyttelse av brukerkonto mot angrep</h1>
+<p>Det finnes mye god praksis for å beskytte brukerkontoer mot innbrudd. Tilgangskontroll består både av autentisering (hver mer du) og autorisasjon (hva har du lov til). Vi ser her først og fremst på autentisering.
+OWASP har laget en nyttig <a href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html">sjekkliste for god autentiseringspraksis</a> som kan brukes til å vurdere en applikasjon. Vi vil ikke gå gjennom
+alle disse, men et lite utvalg:</p>
+<ul>
+<li>Bruk kun sterke passord som er vanskelige å gjette/knekke</li>
+<li>Etabler en sikker mekanisme for å resette passord om det er glemt</li>
+<li>Man skal ikke lekke sensitiv informasjon i feilmeldinger, som for eksempel kan gjøre det mulige å identifisere brukerkontoer</li>
+<li>Direkteangrep mot passord skal ikke være mulig, feks ved ratebegrensning, midlertidig utestenging e.l. Tofaktorautentisering er også effektivt mot slike angrep.</li>
+<li>Tjenesten bør nekte bruk av passord som er inkluderte i kjente lekkasjer/passordlister</li>
+<li>Tjeneste bør logge alle feilede innloggingsforsøk</li>
+</ul>
+<p>Passordfrie innloggingsløsninger og maskinvarebaserte tokens (FIDO) er gode løsninger, men som vi ikke i dag kan forvente rulles ut/påkreves brukt av alle brukere.</p>
+<h2>Passordpolicy</h2>
+<p>La oss teste passord-policy ved å registrere en ny konto. Vi bruker den meste populære norske Mastodon-serveren, <a href="https://snabelen.no">snabelen.no</a>.
+Vi forsøker å lage oss en brukerkonto med brukernavnet <em>passord@snabelen.no</em> og passordet <em>password</em>.</p>
+<p>Registreringsprosessen krever at du verifiserer en e-postadresse. Dessverre godtar den at man bruker &quot;bruk-og-kast-adresser&quot;, så det fungerer ikke særlig til brukerverifikasjon.</p>
+<p>Passordet <em>password</em> ble også godtatt uten videre. Det er dermed ikke en sterk passordpolicy satt opp for systemet.</p>
+<div class="notification is-danger">
+<p class="title">Passordpolicy: svak</p>
+<p>Mastodon-serveren snabelen.no tillater svært svake passord. Brukere bør likevel velge sterke passord og bruke en passord-manager. </p>
+</div>
+<h2>Gjenoppretting av passord</h2>
+<p>Ved å trykke resett passord, får man først en melding om at du vil få en e-post dersom brukerkontoen eksisterer. Dette er bra. Når eposten kommer har den en reset-lenke med et token som virker å være tilfeldig og vanskelig å gjette:</p>
+<p><em>https://snabelen.no/auth/password/edit?reset_password_token=n27cd2FyQ-JQULshL1ok</em></p>
+<p>Når du så oppdaterer passordet får du også tilsendt en epost med beskjed om at dette er gjort. Det er veldig bra!</p>
+<p>Når vi så prøver &quot;glemt passord&quot; igjen, får vi en ny lenke, med et nytt token:</p>
+<p><em>https://snabelen.no/auth/password/edit?reset_password_token=wvzD8mgSwvzeFv4c2Dv7</em></p>
+<p>Om vi prøver å gjenbruke det gamle tokenet, får vi beskjed om at tokenet er ugyldig eller utløpt.</p>
+<div class="notification is-success">
+<p class="title">Gjenopprettingsrutine: sterk</p>
+<p>Mastodon-serveren følger god praksis for gjenopprettingslinker for glemt passord.</p>
+</div>
+Vi har ikke gjort noen inngående sjekk av sikkerheten her, men funksjonaliteten er god og ikke enkel å utnytte for en trusselaktør.
+<h2>Feilmeldinger</h2>
+<p>Ingen videre tester gjort, men ut fra meldingene som er kommet under testing av passord-reset, ser det ut som det er god praksis på dette!</p>
+<h2>Direkteangrep mot passord</h2>
+<p>Her finnes det mange mulige angrepsmetoder. Det er åpenbart at tjenesten ikke
+beskytter mot gjenbruk av passord, i og med at <em>password</em> er et godkjent passord.
+Vi tester om vi kan gjøre et enkelt direkteangrep ved å forsøke å logge inn 15 ganger på rad på svært kort tid, hvor passord 1-14 er feil, og passord 15 er riktig. Planen er å bruke OWASP ZAP som verktøy for å gjøre angrepet.</p>
+<p>Vi ser først på en enkel innlogging i nettleseren. Den gjør en POST-forespørsel til endepunktet <em>/sign_in</em>. Dataene som sende inkluderer</p>
+<ul>
+<li>authenticity_token</li>
+<li>user[email]</li>
+<li>user[password]</li>
+</ul>
+<p>Tokenet som sendes med er et engangstoken som genreres når du går inn på
+innloggingssiden. Dermed kan man ikke gjenbruke dette tokenet i mange forepørsler.
+Dette begrenser en del verktøy fra å forsøke å logge inn mange ganger på rad, da
+verktøyene ofte ikke har støtte for å hente nye tokens. Dette gjelder også ZAP. Er vi da trygge? Ikke helt, vi kan jo skrive vårt eget angrepsverktøy.</p>
+<p>Innloggingsskjemaet har et skjult input-felt for et slikt token, som settes fra
+serveren når nettsiden oppdateres.</p>
+<p><img src="/img/authtoken_signin.png" alt="skjermdump av innlogging med dev tools som viser behov for token">.</p>
+<p>Angrepsmetoden vår må altså se slik ut:</p>
+<ol>
+<li>Gå til https://snabelen.no/auth/sign_in og ekstraher authentication_token fra skjemaet</li>
+<li>Gjør en POST_forespørsel med strukturen over</li>
+<li>Hvis innloggingen ikke var vellykket, gjenta med neste passord</li>
+</ol>
+<p>Vi tester statuskoder først. Ved feilet innlogging får vi statuskode 200 OK. Ved riktig innlogging får vi statuskode 302 Found, som betyr at du blir omdirigert etter vellykket innlogging. Først feilet denne tilnærmingen, men når vi satte en session-cookie for alle innloggingsforsøkene fungerete det. Med 15 innlogginsforsøk fungerer det fint, men om vi gjentar angrepet flere ganger
+får vi etter hvert responskode 429 (Too many requests). Mastodon har altså
+implementert begrensning i antall forsøk man kan gjøre på å logge inn med feil passord.</p>
+<div class="notification is-success">
+<p class="title">Ratebegrensning: OK</p>
+<p>Mastodon har implementert begrensning i antall innloggingsforsøk på rad fra 
+samme bruker.</p>
+</div>
+<h1>Oppsummert</h1>
+<ol>
+<li>Sikkerheten er rimelig bra. I tillegg til det vi har sett på, brukes for eksempel content security policy (CSP) og subresource integrity (SRI) for å hindre injeksjon av skadelige script i frontend.</li>
+<li>Passordsikkerheten er god - med unntak av en viktig ting: styrken på passordene som brukes. Her kan du som bruker velge å bruke et sterkt passord - og det bør du! Det er likevel bedre om applikasjonen ikke godtar veldig svake passord.</li>
+<li>Støtte for 2FA/MFA. Mastodon støtter 2FA, men gir ikke informasjon om dette ved registrering av brukerkonto. Sørg for å skru det på!</li>
+<li>Husk at meldinger på Mastodon ikke er krypterte, og at administratoren har teknisk sett mulighet til å se alt du skriver. Bruk en annen meldinstjeneste for konfidensielle meldinger! Dette gjelder forøvrig de fleste plattformer for sosiale medier.</li>
+</ol>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+  </body>
+  <script src="/js/navbar.js"></script>
+</html>
