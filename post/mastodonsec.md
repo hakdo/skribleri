@@ -43,7 +43,7 @@ alle disse, men et lite utvalg:
 Passordfrie innloggingsløsninger og maskinvarebaserte tokens (FIDO) er gode løsninger, men som vi ikke i dag kan forvente rulles ut/påkreves brukt av alle brukere.
 
 ## Passordpolicy
-La oss teste passord-policy ved å registrere en ny konto. Vi bruker den meste populære norske Mastodon-serveren, [snabelen.no](https://snabelen.no).
+La oss teste passord-policy ved å registrere en ny konto. Vi bruker den mest populære norske Mastodon-serveren, [snabelen.no](https://snabelen.no).
 Vi forsøker å lage oss en brukerkonto med brukernavnet *passord@snabelen.no* og passordet *password*. 
 
 Registreringsprosessen krever at du verifiserer en e-postadresse. Dessverre godtar den at man bruker "bruk-og-kast-adresser", så det fungerer ikke særlig til brukerverifikasjon.
@@ -120,5 +120,5 @@ samme bruker.</p>
 1. Sikkerheten er rimelig bra. I tillegg til det vi har sett på, brukes for eksempel content security policy (CSP) og subresource integrity (SRI) for å hindre injeksjon av skadelige script i frontend. 
 2. Passordsikkerheten er god - med unntak av en viktig ting: styrken på passordene som brukes. Her kan du som bruker velge å bruke et sterkt passord - og det bør du! Det er likevel bedre om applikasjonen ikke godtar veldig svake passord. 
 3. Støtte for 2FA/MFA. Mastodon støtter 2FA, men gir ikke informasjon om dette ved registrering av brukerkonto. Sørg for å skru det på!
-4. Husk at meldinger på Mastodon ikke er krypterte, og at administratoren har teknisk sett mulighet til å se alt du skriver. Bruk en annen meldinstjeneste for konfidensielle meldinger! Dette gjelder forøvrig de fleste plattformer for sosiale medier. 
+4. Husk at meldinger på Mastodon ikke er krypterte, og at administratoren har teknisk sett mulighet til å se alt du skriver. Bruk en annen meldingstjeneste for konfidensielle meldinger! Dette gjelder forøvrig de fleste plattformer for sosiale medier. 
 
