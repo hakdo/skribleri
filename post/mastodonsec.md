@@ -114,6 +114,8 @@ implementert begrensning i antall forsøk man kan gjøre på å logge inn med fe
 samme bruker.</p>
 </div>
 
+*Oppvask*: Brukerkontoen i denne testen er nå slettet. 
+
 # Oppsummert
 1. Sikkerheten er rimelig bra. I tillegg til det vi har sett på, brukes for eksempel content security policy (CSP) og subresource integrity (SRI) for å hindre injeksjon av skadelige script i frontend. 
 2. Passordsikkerheten er god - med unntak av en viktig ting: styrken på passordene som brukes. Her kan du som bruker velge å bruke et sterkt passord - og det bør du! Det er likevel bedre om applikasjonen ikke godtar veldig svake passord. 
