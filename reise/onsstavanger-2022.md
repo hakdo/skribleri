@@ -17,4 +17,7 @@ Shell var en stor sponsor av ONS og sponset konsert med High as a Kite den ene k
 Kort oppsummert en god stund på etterskudd! 
 
 Her er en ofisiell oppsummering av 2022-konferansen: 
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/745268451?h=a715efcc89" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+<div class="iframe-container">
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/745268451?h=a715efcc89" frameborder="0" allowfullscreen></iframe>
+</div>
