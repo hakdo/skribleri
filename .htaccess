@@ -1,4 +1,3 @@
 <IfModule mod_headers.c>
-  Header set Content-Security-Policy "default-src 'self' cdn.jsdelivr.net style-src "
   Header set Cache-Control "no-cache"
 </IfModule>
