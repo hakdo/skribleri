@@ -9,6 +9,7 @@ Mitt navn er Håkon Olsen. Til daglig jobber jeg med
 cybersikkerhet hos DNV. Du kan sende epost til meg på 
 cyberhakon-at-gmail.com, eller du kan følge meg på 
 [twitter.com/sjefersuper](https://twitter.com/sjefersuper).
+Om du har flyktet til Mastodon finner du meg som [@eslet@snabelen.no](https://snabelen.no/web/@eselet).
 
 Denne websiden blir brukt når jeg får et innfall om å 
 legge ut noe på nett. Den ble først satt opp som en test 
