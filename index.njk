@@ -7,8 +7,8 @@ layout: layouts/base.njk
   <div class="container">
     <h2 class="title has-text-centered mt-3 mb-6">Nylige innlegg</h2>
     <div class="columns">
-      {% for post in collections.all | reverse %}
-        {% if loop.index0 < 6 and post.data.tags.length > 0 %}
+      {%- for post in collections.all | reverse -%}
+        {%- if loop.index0 < 6 and post.data.tags.length > 0 -%}
           <div class="column">
             <div class="card">
               <header class="card-header">
@@ -17,11 +17,11 @@ layout: layouts/base.njk
                 </p>
               </header>
               <div class="card-image">
-                {% if post.data.bilde %}
+                {%- if post.data.bilde -%}
                 <img src="{{ post.data.bilde }}">   
-                {% else %}
+                {%- else -%}
                 <img src="/img/hostvindu.jpg">
-                {% endif %}             
+                {%- endif -%}             
               </div>
               <div class="card-content">
                 <div class="content">
@@ -33,8 +33,8 @@ layout: layouts/base.njk
               </footer>
             </div>
           </div>
-          {% endif %}
-      {% endfor %}
+          {%- endif -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>
