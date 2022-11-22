@@ -1,7 +1,8 @@
 ---
 tittel: Blokkere utgående trafikk til gitt domene eller ip på Windows
 beskrivelse: Hvordan blokkere utgående trafikk til et gitt domene eller IP på en Windows-maskin - kan brukes til å stoppe C2-kommunikasjon fra skadevare
-tags: post
+tags: 
+ - post
 date: 2022-08-17
 layout: layouts/post.njk
 ---

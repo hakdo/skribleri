@@ -1,8 +1,9 @@
 ---
 tittel: Jobbtur til Würzburg
-beskrivelse: Würzburg
+beskrivelse: Würzburg - jobbtur med cybersikkerhet, industri og bayersk høst
 tags: reise
 date: 2022-09-17
+bilde: /img/ringpark.jpg
 layout: layouts/post.njk
 ---
 Dette ble en høst med mye reising på jobb. Den 11. september

@@ -7,7 +7,7 @@ layout: layouts/base.njk
   <div class="container">
     <h2 class="title has-text-centered mt-3 mb-6">Nylige innlegg</h2>
     <div class="columns">
-      {%- for post in collections.all | reverse -%}
+      {%- for post in collections.front | reverse -%}
         {%- if loop.index0 < 6 and post.data.tags -%}
           <div class="column">
             <div class="card">
@@ -26,6 +26,7 @@ layout: layouts/base.njk
               <div class="card-content">
                 <div class="content">
                   {{ post.data.beskrivelse }}
+                  <p>{{ post.data.date|readableDate }}</p>
                 </div>
               </div>
               <footer class="card-footer">

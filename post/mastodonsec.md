@@ -1,8 +1,11 @@
 ---
 tittel: Hvordan er basissikkerheten på Mastodon?
 beskrivelse: Mastodon er blitt en frihavn for folk som er skeptiske til utviklingen av Twitter etter Elon Musk tok over. Vi ser på sikkerheten til plattformen.
-tags: post
+tags: 
+ - post
+ - front
 date: 2022-11-07
+bilde: /img/authtoken_signin.png
 layout: layouts/post.njk
 ---
 # Trusselmodellen for en vanlig bruker
