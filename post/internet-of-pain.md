@@ -4,6 +4,7 @@ beskrivelse: Vi har bekymringer i hverdagen, og noen gjelder teknologi. Mange be
 tags: post
 date: 2022-11-18
 layout: layouts/post.njk
+bilde: /img/authtoken_signin.png
 ---
 Siden Elon Musk tok over Twitter, har det vært kaotiske uker på det sosiale
 nettverket. Mer enn halvparten av de ansatte hos Twitter har fått sparken, 

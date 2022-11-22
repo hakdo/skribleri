@@ -4,7 +4,7 @@ beskrivelse: Høstferie på Rhodos
 tags: reise
 date: 2022-11-12
 layout: layouts/post.njk
-draft: true
+bilde: /img/strand.jpg
 ---
 I høstferien i første uka i oktober 2022 dro hele familien til Rhodos for en 
 uke med sol og bading. Vi rakk også få med oss litt andre opplevelser: 

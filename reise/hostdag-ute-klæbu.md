@@ -4,6 +4,7 @@ beskrivelse: En fin høstdag ved Nidelva i Klæbu
 tags: reise
 date: 2022-11-13
 layout: layouts/post.njk
+bilde: /img/hund.jpg
 ---
 I dag var en strålende søndag, hvor noen av timene med dagslys ble tilbragt ved Nidelva.
 Turen trenger ikke være lang for å være fin!

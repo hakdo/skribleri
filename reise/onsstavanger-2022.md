@@ -1,10 +1,11 @@
 ---
 tittel: ONS 2022
 beskrivelse: ONS - stor energikonferanse i Stavanger
-tags: reise
+tags: 
+  - reise
 date: 2022-11-12
 layout: layouts/post.njk
-draft: true
+bilde: /img/dino.jpg
 ---
 I august 2022 dro jeg til ONS sammen med flere kolleger. Det var en interessant konferanse med tusenvis av ustillere - de fleste aktive i olje og gass, selv om man kan få inntrykk av at det i hovedsak handlet om fornybar energi. Det var noen beskyldninger om grønnvasking fra aktivister, men samtidig virket det som de fleste store akøtrene i energibransjen gjør seriøse investeringer i fornybar energi og mer bærekraftige løsninger. 
 
