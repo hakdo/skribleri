@@ -1,0 +1,73 @@
+---
+title: Homepage
+layout: layouts/base.njk
+---
+
+<section class="postlist mt-3 pt-3">
+  <div class="container">
+    <h2 class="title has-text-centered mt-3 mb-6">Kommende prekener</h2>
+    <p class="subtitle">Jeg stiller ofte opp på mer eller mindre offentlige arrangementer og snakker om cybersikkerhet. 
+        Her kan du se om og eventuelt hva jeg har på planen, og etter hvert også historiske ting. 
+    </p>
+
+    
+    
+    <div class="columns mt-3">
+        {%- for item in preiking -%}
+        {% if item.dato | pastFuture %}
+        <div class="column">
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  {{ item.navn }} | {{ item.sted }}
+                </p>
+              </header>
+              <div class="card-image">
+                
+                <img src="{{ item.bilde }}">   
+                
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  {{ item.beskrivelse }}
+                  <p>{{ item.dato }}</p>
+                </div>
+              </div>
+              <footer class="card-footer">
+                {% if item.URL %}
+                <a href="{{ item.URL }}" class="button is-fullwidth is-dark card-footer-item">Mer info</a>
+                {% else %}
+                <button  class="button is-fullwidth is-dark card-footer-item" disabled>Mer info (kommer)</a>
+                {% endif %}
+              </footer>
+            </div>
+          </div>
+        {% endif %}
+        {%- endfor -%}
+      
+    </div>
+  </div>
+</section>
+<section>
+    <hr>
+    <div class="container">
+    <h2 class="title has-text-centered mt-3 mb-6">Historiske hendelser</h2>
+    <div class="columns is-centered">
+    <div class="column is-half">
+    <table class="table is-striped">
+        <tbody>
+            {% for item in preiking %}
+            {% if not item.dato|pastFuture %}
+                <tr>
+                    <td>{{item.dato}}</td>
+                    <td>{{item.navn}}</td>
+                    <td>{{item.sted}}</td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </body>
+    </table>
+    </div>
+    </div>
+    </div>
+</section>

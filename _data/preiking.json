@@ -1,0 +1,50 @@
+[
+    {
+        "navn": "Cybersikkerhet i store prosjekter",
+        "dato": "2022-12-13",
+        "beskrivelse": "Hvilke utfordringer for cybersikkerhet er typisk for store prosjekter, og hvordan kan vi håndtere dem?",
+        "URL": "https://nfkr.no/2022/10/11/krn-fagsamling-cybersikkerhet-i-store-prosjekter_2022-11-03/",
+        "bilde": "/img/dnv.jpg",
+        "sted": "Trondheim"
+    },
+    {
+        "navn": "Sikkerhet og IoT: når konsekvensene blir fysiske",
+        "dato": "2023-01-12",
+        "beskrivelse": "Hva skjer om systemet ditt blir hacket, når systemet brukes til å kontrollere fysiske ting?",
+        "URL": "",
+        "bilde": "/img/threatintel.jpg",
+        "sted": "Trondheim"
+    },
+    {
+        "navn": "How to make an oil platform explode over the Internet",
+        "dato": "2022-10-19",
+        "beskrivelse": "Consequences of cyber attacks on energy production assets can be severe.",
+        "URL": "https://www.dnv.com",
+        "bilde": "/img/hund.jpg",
+        "sted": "Oslo"
+    },
+    {
+        "navn": "How to make an oil platform explode over the Internet",
+        "dato": "2022-09-06",
+        "beskrivelse": "Consequences of cyber attacks on energy production assets can be severe.",
+        "URL": "https://www.dnv.com",
+        "bilde": "/img/hund.jpg",
+        "sted": "Trondheim"
+    },
+    {
+        "navn": "Cybersecurity for autonomous systems (ONS Talk)",
+        "dato": "2022-08-31",
+        "beskrivelse": "Autonomous systems require capability of self-defense against cyber attacks.",
+        "URL": "",
+        "bilde": "/img/hund.jpg",
+        "sted": "Stavanger"
+    },
+    {
+        "navn": "How to make an oil platform explode over the Internet",
+        "dato": "2022-06-24",
+        "beskrivelse": "Consequences of cyber attacks on energy production assets can be severe.",
+        "URL": "https://www.dnv.com",
+        "bilde": "/img/hund.jpg",
+        "sted": "Stavanger"
+    }
+]
