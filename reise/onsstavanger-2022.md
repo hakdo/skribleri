@@ -3,7 +3,6 @@ tittel: ONS 2022
 beskrivelse: ONS - stor energikonferanse i Stavanger
 tags: 
   - reise
-  - front
 date: 2022-11-12
 layout: layouts/post.njk
 bilde: /img/dino.jpg
