@@ -16,6 +16,14 @@
         "sted": "Trondheim - Sparebank1 SMN, Søndre gt 4. Klokken 16:00."
     },
     {
+        "navn": "Cybersikkerhet i olje og gass - trusler og tiltak",
+        "dato": "2023-02-01",
+        "beskrivelse": "Hva kan skje om en angriper tar kontroll over en oljeplattform - og hvordan kan vi forsvare installasjoner mot angrep?",
+        "URL": "",
+        "bilde": "/img/fpso.jpg",
+        "sted": "Trondheim"
+    },
+    {
         "navn": "How to make an oil platform explode over the Internet",
         "dato": "2022-10-19",
         "beskrivelse": "Consequences of cyber attacks on energy production assets can be severe.",
