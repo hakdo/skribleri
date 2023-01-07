@@ -3,7 +3,6 @@ tittel: Høstdag ved Nidelva
 beskrivelse: En fin høstdag ved Nidelva i Klæbu
 tags: 
  - reise
- - front
 date: 2022-11-13
 layout: layouts/post.njk
 bilde: /img/hund.jpg
