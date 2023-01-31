@@ -193,3 +193,10 @@ nettverk. Noen generelle tips kan vel være:
 
 Lykke til!
 
+## Oppdatering om NSM's grunnprinsipper
+Jeg postet en lenke til denne bloggposten på [Mastodon](https://snabelen.no/@eselet/109780133809154097), og fikk en veldig fornuftig tilbakemelding: 
+
+<iframe src="https://snabelen.no/@Soepstad/109782593994014694/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="400" allowfullscreen="allowfullscreen"></iframe><script src="https://snabelen.no/embed.js" async="async"></script>
+
+[NSMs grunnprinsipper for IKT-sikkerhet (v 2.0)](https://nsm.no/regelverk-og-hjelp/rad-og-anbefalinger/grunnprinsipper-for-ikt-sikkerhet-2-0/introduksjon-1/) er en veldig god ressurs for å lære god sikkerhetspraksis. 
+Anbefales på det sterkeste som læringsressurs også!
