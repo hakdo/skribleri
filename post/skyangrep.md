@@ -198,7 +198,7 @@ fremtiden ved bedre herding. Å respondere raskt nok til
 en automatisert respons - men da har man vel gjerne også 
 gjennomført herding. 
 
-## Oppsumemring av skyrespons
+## Oppsummering av skyrespons
 For å respondere i skyen, er tankegangen veldig lik tradisjonell
 håndtering i et stedfast IT-miljø. Man må sette opp deteksjoner, 
 sørge for å ha en håndteringsplan, og også ha tilganger 
