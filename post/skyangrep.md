@@ -9,8 +9,8 @@ layout: layouts/post.njk
 bilde: /img/skyangrep.gif
 ---
 Hverdagen vår avhenger av nettskyen, og særlig av 3 store amerikanske leverandører av skytjenester: Microsoft, Amazon og Google. Ofte ser vi et godt gjennomtygd meme som hever at det ikke finnes noen sky, bare 
-datamaskiner som tilhører noen andre. Selv om det er en viss grad av sannhet i dette (tjenstene vi kjører 
-i skyen, _kjører på datamaskiner som tilhører noen andre_.)
+datamaskiner som tilhører noen andre. Selv om det er en viss grad av sannhet i dette (tjenestene vi kjører 
+i skyen, _kjører på datamaskiner som tilhører noen andre_.) Sannheten er nok (heldigvis) litt mer omfattende. 
 
 ## Hva er så skyen? 
 NIST har laget en [definisjon av skytjenester](https://www.nist.gov/publications/nist-definition-cloud-computing) som dekker det viktigste: 
