@@ -78,7 +78,7 @@ For å kunne håndtere hendelser i skymiljøer trenger vi først 3 ting:
 - En plan for hva som skal gjøres ved en deteksjon
 
 ### Eksempel: kompromittert VM
-Vi kjører bruker Google's Compute Engine-tjeneste til å 
+Vi bruker Google's Compute Engine-tjeneste til å 
 kjøre en applikasjon. Denne er ikke eksponert direkte mot 
 internett, men kjører med standard servicekonto. VM-en er 
 satt opp med full tilgang til Google's Cloud API. Utvikleren har tilgang til VM-en via SSH fra sin PC. 
