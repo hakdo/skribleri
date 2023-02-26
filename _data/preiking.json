@@ -1,11 +1,19 @@
 [
     {
-        "navn": "Cybersikkerhet i store prosjekter",
-        "dato": "2022-12-13",
+        "navn": "Cybersikkerhet i store prosjekter (Privat arr.)",
+        "dato": "2023-02-21",
         "beskrivelse": "Hvilke utfordringer for cybersikkerhet er typisk for store prosjekter, og hvordan kan vi håndtere dem?",
-        "URL": "https://nfkr.no/2022/10/11/krn-fagsamling-cybersikkerhet-i-store-prosjekter_2022-11-03/",
+        "URL": "",
         "bilde": "/img/dnv.jpg",
-        "sted": "Trondheim"
+        "sted": "-"
+    },
+    {
+        "navn": "Cybersikkerhet i olje og gass - trusler og tiltak [Fysisk arr. avlyst - webinar kommer]",
+        "dato": "2023-02-17",
+        "beskrivelse": "Hva kan skje om en angriper tar kontroll over en oljeplattform - og hvordan kan vi forsvare installasjoner mot angrep?",
+        "URL": "https://npf.medlemssystem.com/courses/15520",
+        "bilde": "/img/fpso.jpg",
+        "sted": "Internett"
     },
     {
         "navn": "Sikkerhet og IoT: når konsekvensene blir fysiske (ny dato!)",
@@ -16,12 +24,12 @@
         "sted": "Trondheim"
     },
     {
-        "navn": "Cybersikkerhet i olje og gass - trusler og tiltak [Fysisk arr. avlyst - webinar kommer]",
-        "dato": "2023-02-17",
-        "beskrivelse": "Hva kan skje om en angriper tar kontroll over en oljeplattform - og hvordan kan vi forsvare installasjoner mot angrep?",
-        "URL": "https://npf.medlemssystem.com/courses/15520",
-        "bilde": "/img/fpso.jpg",
-        "sted": "Internett"
+        "navn": "Cybersikkerhet i store prosjekter",
+        "dato": "2022-12-13",
+        "beskrivelse": "Hvilke utfordringer for cybersikkerhet er typisk for store prosjekter, og hvordan kan vi håndtere dem?",
+        "URL": "https://nfkr.no/2022/10/11/krn-fagsamling-cybersikkerhet-i-store-prosjekter_2022-11-03/",
+        "bilde": "/img/dnv.jpg",
+        "sted": "Trondheim"
     },
     {
         "navn": "How to make an oil platform explode over the Internet",

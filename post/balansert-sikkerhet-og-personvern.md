@@ -3,7 +3,6 @@ tittel: Hvordan kan vi balansere sikkerhet og personvern?
 beskrivelse: Sikkerhetsbehov blir ofte prioritert så høyt at andre behov ikke kommer til sin rett. Men trenger det å være slik for at vi skal oppnå akseptabel risiko?
 tags: 
  - post
- - front
 date: 2022-11-29
 bilde: /img/kontorams.jpg
 layout: layouts/post.njk

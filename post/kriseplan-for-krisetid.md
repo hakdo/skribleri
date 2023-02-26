@@ -3,7 +3,6 @@ tittel: Kriseplan for krisetid
 beskrivelse: Hva skal til for å klare seg bedre i (digitale) kriser? Litt gode venner og litt forberedelse har du mye bedre odds. 
 tags: 
  - post
- - front
 date: 2023-01-07
 bilde: /img/katt.jpg
 layout: layouts/post.njk
