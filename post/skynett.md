@@ -3,7 +3,6 @@ tittel: Nettverksanalyse i skyen
 beskrivelse: Hvordan kan vi oppdage og analysere nettverkshendelser i skyen?
 tags: 
  - post
- - front
 date: 2023-03-05
 bilde: /img/nettverksrot.jpg
 layout: layouts/post.njk
