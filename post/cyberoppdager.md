@@ -29,3 +29,9 @@ Ved ganske enkelt å installere [Sysmon](https://learn.microsoft.com/en-us/sysin
 konfig-fila fra [SwiftOnSecurity](https://github.com/SwiftOnSecurity/sysmon-config), blir situasjonen 
 en annen. Wazuh fyrer opp med alerts, og vi oppdager hva skurkene har fore. 
 
+![Alarmer etter sysmon ble installert](/img/alerts_after_sysmon.png)
+
+## Take-away
+- Ikke stol på sikkerhetsverktøy uten å teste og tilpasse dem
+- Bruk verktøy som øker synligheten av mistenkelig aktivitet
+- Tenk gjennom hvilke ekstra deteksjoner du har bruk for
