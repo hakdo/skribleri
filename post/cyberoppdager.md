@@ -3,7 +3,8 @@ tittel: Oppdage skurker i maskinen
 beskrivelse: Skurkene har hacket en maskin på nettet. Hvordan kan vi oppdage dem?
 tags: 
  - post
-date: 2023-09-05
+date: 2023-09-04
+bilde: /img/nettverksrot.jpg
 layout: layouts/post.njk
 ---
 # En Windows-PC blir hacket
